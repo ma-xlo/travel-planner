@@ -7,6 +7,7 @@
 #include "../db.h"
 #include "../controllers/travelController.h"
 #include "../controllers/registerController.h"
+#include "../controllers/userController.h"
 #include "../utils/helpers.h"
 
 class GuestsView {
@@ -16,13 +17,17 @@ public:
     static void create () {
         std::string name;
         std::string email;
-        GuestsView::travels = TravelController::get(); 
 
         printf("Nome: ");
         std::getline (std::cin, name);
         printf("Email: ");
         std::getline (std::cin, email);
-        
+
+        // Cria usuario convidado
+        User user = UserController::post(name, email);
+        // Obtem lista de viagens agendadas
+        GuestsView::travels = TravelController::get(); 
+
         clear_screen();
         int count = 1;
         printf("+-----------------------------------------------------------+\n");
@@ -40,8 +45,9 @@ public:
         
         int travelIndex = std::stoi(option);
         Travel selectedTravel = travels[travelIndex - 1];
-
-        RegisterController::post(name, email, selectedTravel.getName(), selectedTravel.getDate());
+        
+        // Realiza um cadastro de usuario convidado
+        RegisterController::post(user, selectedTravel);
 
         std::cout<<std::endl<<"Adicionado com suceso!"<<std::endl;
         std::getline (std::cin, option);

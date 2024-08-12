@@ -1,5 +1,5 @@
-#ifndef TRIPSVIEW_H
-#define TRIPSVIEW_H
+#ifndef TRAVELVIEW_H
+#define TRAVELVIEW_H
 
 #include <iostream>
 #include <string>
@@ -7,7 +7,7 @@
 #include "../db.h"
 #include "../controllers/travelController.h"
 
-class TripsView {
+class TravelView {
 public:
     static std::vector<Travel> travels;
 
@@ -27,7 +27,7 @@ public:
     }
 
     static void list() {
-        TripsView::travels = TravelController::get(); 
+        TravelView::travels = TravelController::get(); 
         printf("+--------------------------------------------------------+\n");
         printf("|                     Viagens Agendadas                  |\n");
         printf("+--------------------------------------------------------+\n");
